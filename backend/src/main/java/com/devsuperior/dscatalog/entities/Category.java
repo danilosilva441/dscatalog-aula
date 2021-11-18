@@ -1,23 +1,35 @@
 package com.devsuperior.dscatalog.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_category")
-public class Category  implements Serializable {
+public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	
+
+	// Hora exata em que fez a aplicação, no horario universal UTC
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant createdAt;
+
+	// Hora exata em que fez a aplicação, no horario universal UTC
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant updatedAt;
+
 	public Category() {
 	}
 
@@ -42,6 +54,27 @@ public class Category  implements Serializable {
 		this.name = name;
 	}
 
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
+	
+	
+	//sempre que chamar um save no banco ele chama esse quando for criado
+	@PrePersist
+	public void prePersist() {
+		createdAt = Instant.now();
+	}
+	
+	//sempre que atualizar um save no banco ele chama esse
+	@PreUpdate
+	public void preUpdate() {
+		updatedAt = Instant.now();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,11 +95,9 @@ public class Category  implements Serializable {
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		}	else if (!id.equals(other.id))
-				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		return true;
 	}
-	
-	
 
 }
