@@ -25,6 +25,7 @@ public class CategoryService {
 	private CategoryRepository repository;
 	
 	//Busca todos os serviços do banco de dados
+	//parametros para custumizar as buscas do banco por paginas
 	@Transactional(readOnly = true)
 	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
 		Page<Category> list = repository.findAll(pageRequest);
