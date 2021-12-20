@@ -1,7 +1,5 @@
 package com.devsuperior.dscatalog.dto;
 
-import net.bytebuddy.implementation.bind.annotation.Super;
-
 public class UserInsertDTO extends UserDTO {
     private static final long serialVersionUID = 1L;
     
