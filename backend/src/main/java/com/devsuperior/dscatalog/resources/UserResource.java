@@ -60,7 +60,7 @@ public class UserResource {
 	// PUT PARA ATUALIZAR RECURSO
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @RequestBody UserDTO dto) {
+	public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @RequestBody UserDTO dto) { //@Valid Serve para validar as anotações feitas no DTO
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
