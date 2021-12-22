@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.devsuperior.dscatalog.dto.UserDTO;
 import com.devsuperior.dscatalog.dto.UserInsertDTO;
+import com.devsuperior.dscatalog.dto.UserUpdateDTO;
 import com.devsuperior.dscatalog.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +61,9 @@ public class UserResource {
 	// PUT PARA ATUALIZAR RECURSO
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @RequestBody UserDTO dto) { //@Valid Serve para validar as anotações feitas no DTO
-		dto = service.update(id, dto);
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) { //@Valid Serve para validar as anotações feitas no DTO
+		UserDTO newDto = service.update(id, dto);
+		return ResponseEntity.ok().body(newDto);
 	}
 
 	// Serve para deletar um ID do banco de dados
