@@ -26,6 +26,7 @@ public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid,
 
 	@Override
 	public void initialize(UserUpdateValid ann) {
+		//
 	}
 
 	@Override
