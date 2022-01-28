@@ -23,30 +23,18 @@ public class RoleDTO implements Serializable {
         authority = role.getAuthority();
     }
 
-    /**
-     * @return Long return the id
-     */
     public Long getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * @return String return the authority
-     */
     public String getAuthority() {
         return authority;
     }
 
-    /**
-     * @param authority the authority to set
-     */
     public void setAuthority(String authority) {
         this.authority = authority;
     }

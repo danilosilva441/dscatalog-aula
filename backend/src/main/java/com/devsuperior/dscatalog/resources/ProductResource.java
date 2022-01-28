@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,9 +32,12 @@ public class ProductResource {
 	
 	//parametros para custumizar as buscas do banco por paginas
 	@GetMapping
-	public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) { // PARAMETROS: page, size, sort = que ja tem no PAGEABLE por padrão
+	public ResponseEntity<Page<ProductDTO>> findAll(
+			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
+			
+			Pageable pageable) { // PARAMETROS: page, size, sort = que ja tem no PAGEABLE por padrão
 
-		Page<ProductDTO> list = service.findAllPaged(pageable);
+		Page<ProductDTO> list = service.findAllPaged(categoryId, pageable);
 		
 		return ResponseEntity.ok().body(list);
 	}
