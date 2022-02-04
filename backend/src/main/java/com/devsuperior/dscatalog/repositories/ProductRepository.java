@@ -12,9 +12,10 @@ import com.devsuperior.dscatalog.entities.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	
-	@Query("SELECT obj FROM Product obj INNER JOIN obj.categories cats WHERE "
-			+ ":category IN cats")
-	Page<Product> find(Category category, Pageable pageable);
+	@Query("SELECT DISTINCT obj FROM Product obj INNER JOIN obj.categories cats WHERE "
+			+ "(:category IS NULL OR :category IN cats) AND "
+			+ "(LOWER(obj.name) LIKE LOWER(CONCAT('%',:name,'%')) ) ")
+	Page<Product> find(Category category, String name, Pageable pageable);
 	
-	
+	//let x = encondeURIComponent("Nome que for necessario quando tive espaço no nome")
 }

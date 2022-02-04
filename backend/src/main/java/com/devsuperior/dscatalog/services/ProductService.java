@@ -33,12 +33,12 @@ public class ProductService {
 	// Busca todos os serviços do banco de dados
 	// parametros para custumizar as buscas do banco por paginas
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(Long categoryId, Pageable pageable) {
+	public Page<ProductDTO> findAllPaged(Long categoryId, String name, Pageable pageable) {
 		// Código a baixo e uma expressão condicional ternaria onde o 1º faz o Se((categoryId == 0) ? null),
 		// 2º faz o SeNao(: categoryRepository.getOne(categoryId);)
 		Category category = (categoryId == 0) ? null : categoryRepository.getOne(categoryId); 
 		
-		Page<Product> list = repository.find(category, pageable);
+		Page<Product> list = repository.find(category, name, pageable);
 		return list.map(x -> new ProductDTO(x));
 	}
 
