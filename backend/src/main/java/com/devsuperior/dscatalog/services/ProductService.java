@@ -39,9 +39,10 @@ public class ProductService {
 		// Código a baixo e uma expressão condicional ternaria onde o 1º faz o Se((categoryId == 0) ? null),
 		// 2º faz o SeNao(: categoryRepository.getOne(categoryId);)
 		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId)); 
+		Page<Product> page = repository.find(categories, name, pageable);
 		
-		Page<Product> list = repository.find(categories, name, pageable);
-		return list.map(x -> new ProductDTO(x));
+		repository.findProductsWithCategories(page.getContent());
+		return page.map(x -> new ProductDTO(x, x.getCategories()));
 	}
 
 	// Esse metodo está conciliado para puxar ID com o ProductResource

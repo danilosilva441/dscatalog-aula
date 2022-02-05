@@ -20,4 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	Page<Product> find(List<Category> categories, String name, Pageable pageable);
 	
 	//let x = encondeURIComponent("Nome que for necessario quando tive espaço no nome")
+	
+	@Query("SELECT obj FROM Product obj JOIN FETCH obj.categories WHERE obj IN :products")
+	List<Product> findProductsWithCategories(List<Product> products);
 }
